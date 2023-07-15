@@ -1,5 +1,5 @@
-import Home from "./components/home";
-import Sidebar from "./components/siebar";
+import Home from "../components/home";
+import Sidebar from "../components/siebar";
 
 export default function Main() {
   return (
