@@ -1,18 +1,25 @@
-import Home from "../components/home";
-import Sidebar from "../components/siebar";
+'use client'
+import { useUserAuth } from "../src/context/UserAuthContext";
+import { useRouter } from 'next/navigation';
+import Loader from '@/components/Loader/Loader';
 
 export default function Main() {
-  return (
-    <main>
-      <div className="flex flex-row bg-zinc-50 h-screen w-screen">
-        <nav className="flex-2">
-          <Sidebar />
-        </nav>
-        <div className="flex-1">
-          <Home />
-        </div>
-      </div>
 
-    </main>
-  )
+  const router = useRouter();
+  const { user } = useUserAuth();
+
+
+  if (!user) {
+    router.push("/login")    
+    return <div><Loader /></div>
+  } else {
+    if (!user.emailVerified) {
+      router.push("/signup/verify")
+      return <div><Loader /></div>
+    } else {
+      router.push('/hghjnjg')
+      return <div><Loader /></div>
+    }
+
+  }
 }

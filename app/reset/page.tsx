@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { useUserAuth } from '@/src/context/UserAuthContext';
 import { useRouter } from 'next/navigation';
+import { toast } from "react-hot-toast";
 
 
 const Reset: React.FC = () => {

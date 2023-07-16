@@ -7,29 +7,32 @@ import {
   sendPasswordResetEmail,
   onAuthStateChanged,
   GoogleAuthProvider,
-  updateProfile,
+  signInWithPopup,
   signOut
 } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { db } from "../lib/firebase"
 import { doc, onSnapshot } from "firebase/firestore";
+import { toast } from "react-hot-toast";
+
 
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const [userData, setuserData] = useState()
   const provider = new GoogleAuthProvider();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       setUser(currentuser);
+      console.log(currentuser);
       try {
         onSnapshot(doc(db, "users", currentuser.email), (doc) => {
           setuserData(doc.data())
         });
       } catch (error) {
-
+        toast.error(error)
       }
 
     });
@@ -52,6 +55,7 @@ export function UserAuthContextProvider({ children }) {
         try {
           sendEmailVerification(auth.currentUser);
         } catch (error) {
+          toast.error(error)
 
         }
       });
@@ -65,8 +69,8 @@ export function UserAuthContextProvider({ children }) {
         // ..
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        toast.error(error.message)
+
         // ..
       });
   }
@@ -81,20 +85,23 @@ export function UserAuthContextProvider({ children }) {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        
+
         setUser(user)
       }).catch((e) => {
+        toast.error(e)
+
       });
   }
 
-  function updateProfile(name){
+  function updateProfile(name) {
     updateProfile(auth.currentUser, {
       displayName: name
     }).then(() => {
       // Profile updated!
       // ...
     }).catch((error) => {
-      // An error occurred
+      toast.error(error)
+
       // ...
     });
   }

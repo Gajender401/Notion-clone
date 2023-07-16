@@ -8,7 +8,7 @@ const ProtectedRoutes = (WrappedComponent) => {
     const { user } = useUserAuth();
 
       if (!user) {
-        router.replace('/'); // Redirect to unauthorized page or any other route
+        router.replace('/login'); // Redirect to unauthorized page or any other route
       }
 
     // Render the wrapped component if authorized

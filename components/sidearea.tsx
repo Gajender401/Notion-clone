@@ -1,7 +1,6 @@
 import React from 'react';
-import 'tailwindcss/tailwind.css';
 
-const Home: React.FC = () => {
+const Sidearea: React.FC = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div className="flex-1 p-4">
@@ -15,4 +14,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Sidearea;

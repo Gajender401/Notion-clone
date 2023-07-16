@@ -4,11 +4,13 @@ import { FcGoogle } from 'react-icons/fc';
 import { useUserAuth } from '@/src/context/UserAuthContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast } from "react-hot-toast";
+
 
 const Signup: React.FC = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
 
-    const { signUp } = useUserAuth()
+    const { signUp, googleOAuth } = useUserAuth()
     const router = useRouter()
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -101,16 +103,17 @@ const Signup: React.FC = () => {
 
                 <div style={{ display: 'flex', width: '100%', flexDirection: 'column' }}>
                     <div>
-                        <div
+                        <button
                             className="w-full text-[#111111] inline-flex items-center justify-center whitespace-nowrap h-9 rounded-md text-base font-medium px-3 cursor-pointer bg-white mb-4"
                             style={{
                                 border: '1px solid rgba(15, 15, 15, 0.15)',
                                 boxShadow: 'rgba(15, 15, 15, 0.05) 0px 1px 2px',
                             }}
+                            onClick={()=>googleOAuth()}
                         >
                             <FcGoogle size={18} className="mr-3" />
                             Continue with Google
-                        </div>
+                        </button>
                     </div>
 
                 </div>

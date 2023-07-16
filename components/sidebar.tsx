@@ -7,11 +7,15 @@ import { IoAddCircleSharp } from 'react-icons/io5'
 import { AiFillSetting } from 'react-icons/ai'
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import Head from 'next/head';
+import { useUserAuth } from '@/src/context/UserAuthContext';
 
 
 const Sidebar: React.FC = () => {
 
   const [pageTitle, setPageTitle] = useState('Notion');
+  const { user, logOut } = useUserAuth()
+  const [isBoxVisible, setBoxVisible] = useState(false);
+
 
   useEffect(() => {
     document.title = pageTitle;
@@ -20,8 +24,22 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className="flex flex-col bg-FBFBFA w-64 h-vh text-[#8c8c8b] font-medium text-sm ">
-      <div className="p-2">
-        <h1 className="text-xl ">User</h1>
+      <div onClick={() => setBoxVisible(!isBoxVisible)} className="p-2 flex items-center cursor-pointer">
+        <Image className='rounded m-2' src={user.photoURL} width={20} height={20} alt='user' />
+        <h1 className=" text-black font-semibold  ">
+          {user.displayName}
+        </h1>
+        {isBoxVisible &&
+          <div className="w-60 h-48 absolute top-12 left-5 bg-white rounded-md p-3 "
+            style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", border: "solid 1px #e8e8e8" }}
+          >
+            <div className='text-[10px] ' >
+              {user.email}
+            </div>
+            <div onClick={()=>logOut()} className='text-[10px] ' >
+              logout
+            </div>
+          </div>}
       </div>
       <nav className="flex-1">
         <ul className="p-1">
