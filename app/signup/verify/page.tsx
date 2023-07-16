@@ -4,9 +4,8 @@ import React, { useState } from 'react';
 import { useUserAuth } from '@/src/context/UserAuthContext';
 import { useRouter } from 'next/navigation';
 
-
-const Reset: React.FC = () => {
-    const [email, setEmail] = useState<string>();
+const Verify: React.FC = () => {
+    const [name, setName] = useState<string>();
 
     const { signUp } = useUserAuth()
     const router = useRouter()
@@ -19,16 +18,16 @@ const Reset: React.FC = () => {
     return (
         <div className="flex flex-col items-center justify-center h-screen">
             <div className="text-4xl mt-12vh font-bold mb-10 text-center leading-tight max-w-380px">
-                Login
+            Verify Email
             </div>
 
             <div className="w-full flex flex-col items-center max-w-[320px]">
                 <form className="w-full" onSubmit={handleSubmit}>
                     <label
-                        className="block mb-4 text-sm text-gray-500"
+                        className="block mb-4 text-sm"
                         style={{ color: 'rgba(55, 53, 47, 0.65)' }}
                     >
-                        Reset password
+                        Name
                     </label>
 
                     <input
@@ -37,13 +36,13 @@ const Reset: React.FC = () => {
                             boxShadow: 'rgba(15, 15, 15, 0.1) 0px 0px 0px 1px inset',
                             background: 'rgba(242, 241, 238, 0.6)',
                         }}
-                        placeholder="Enter your email address..."
-                        type="email"
-                        autoComplete="email"
-                        aria-label="Enter your email address..."
-                        value={email}
+                        placeholder="Enter your name"
+                        type="name"
+                        autoComplete="name"
+                        aria-label="Enter your name"
+                        value={name}
                         onChange={(e) =>
-                            setEmail(e.target.value)
+                            setName( e.target.value )
                         }
                     />
 
@@ -53,21 +52,21 @@ const Reset: React.FC = () => {
                         inline-flex items-center justify-center whitespace-nowrap h-9 rounded-md
                         text-sm font-medium px-3 py-1.5  w-full  transition-colors duration-300 ease-in "
 
-                        style={{boxShadow:'rgba(15, 15, 15, 0.1) 0px 1px 2px, rgba(235, 87, 87, 0.3) 0px 0px 0px 1px inset',}}
+                        style={{ boxShadow:'rgba(15, 15, 15, 0.1) 0px 1px 2px, rgba(235, 87, 87, 0.3) 0px 0px 0px 1px inset',}}
                     >
-                        Send reset link
+                        Proceed
                     </button>
                 </form>
 
                 <div
                     className="text-sm leading-6 mt-4 mb-4 text-center"
-                    style={{color: 'rgba(55, 53, 47, 0.65)',}}
+                    style={{color: 'rgba(55, 53, 47, 0.65)'}}
                 >
-                    If you already have an account{' '}
-                    <Link href='/login'
+                    Back to {' '}
+                    <Link href='/signup'
                         className="inline hover:text-red-500 text-current underline select-none cursor-pointer"
                     >
-                        Login
+                        Signup
                     </Link>
                 </div>
 
@@ -77,4 +76,4 @@ const Reset: React.FC = () => {
     );
 };
 
-export default Reset;
+export default Verify;
