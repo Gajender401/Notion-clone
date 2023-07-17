@@ -9,6 +9,10 @@ export default function Main() {
   const { user } = useUserAuth();
 
 
+  if (user===undefined) {
+    return <div><Loader /></div>
+  }
+
   if (!user) {
     router.push("/login")    
     return <div><Loader /></div>

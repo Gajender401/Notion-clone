@@ -5,6 +5,7 @@ import Sidebar from '@/components/sidebar';
 import Sidearea from '@/components/sidearea';
 import ProtectedRoutes from '@/src/HOC/ProtectedRoute'
 import { useUserAuth } from '@/src/context/UserAuthContext';
+import Split from 'react-split'
 
 
 const Page = ({ params }: { params: { id: string } }) => {
@@ -18,11 +19,11 @@ const Page = ({ params }: { params: { id: string } }) => {
 
     return (
         <main>
-            <div className="flex flex-row bg-zinc-50 h-screen w-screen">
-                <nav className="flex-2">
+            <Split sizes={[17,83]} className="split" gutterSize={2} gutterAlign="start" minSize={200}>
+                <div>
                     <Sidebar />
-                </nav>
-                <div className="flex-1">
+                </div>
+                <div className='flex-1'>
                     <div className="flex min-h-screen bg-gray-100">
                         <div className="flex-1 p-4">
                             <h2 className="text-2xl font-bold mb-4">{params.id}</h2>
@@ -31,8 +32,9 @@ const Page = ({ params }: { params: { id: string } }) => {
                                 Add your content here and customize it to fit your needs.
                             </p>
                         </div>
-                    </div>                </div>
-            </div>
+                    </div>
+                </div>
+            </Split>
         </main>
     )
 }

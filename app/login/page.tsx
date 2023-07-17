@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useUserAuth } from '@/src/context/UserAuthContext';
 import { useRouter } from 'next/navigation';
@@ -9,8 +9,16 @@ import { toast } from "react-hot-toast";
 const Login: React.FC = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
 
-    const { login, googleOAuth } = useUserAuth()
+    const { login, googleOAuth, user } = useUserAuth()
     const router = useRouter()
+
+
+    useEffect(() => {
+        if (user) {
+          router.replace('/')  
+        }
+    }, [user])
+    
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -74,6 +82,8 @@ const Login: React.FC = () => {
                             boxShadow:
                                 'rgba(15, 15, 15, 0.1) 0px 1px 2px, rgba(235, 87, 87, 0.3) 0px 0px 0px 1px inset',
                         }}
+
+                        onClick={()=>login(formData.email, formData.password)}
 
                     >
                         Continue with email

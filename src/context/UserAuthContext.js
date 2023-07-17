@@ -13,7 +13,6 @@ import {
 import { auth } from "../lib/firebase";
 import { db } from "../lib/firebase"
 import { doc, onSnapshot } from "firebase/firestore";
-import { toast } from "react-hot-toast";
 
 
 const userAuthContext = createContext();
@@ -32,7 +31,6 @@ export function UserAuthContextProvider({ children }) {
           setuserData(doc.data())
         });
       } catch (error) {
-        toast.error(error)
       }
 
     });
@@ -55,8 +53,6 @@ export function UserAuthContextProvider({ children }) {
         try {
           sendEmailVerification(auth.currentUser);
         } catch (error) {
-          toast.error(error)
-
         }
       });
     return
@@ -69,8 +65,6 @@ export function UserAuthContextProvider({ children }) {
         // ..
       })
       .catch((error) => {
-        toast.error(error.message)
-
         // ..
       });
   }
@@ -80,15 +74,12 @@ export function UserAuthContextProvider({ children }) {
 
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-
         setUser(user)
+
       }).catch((e) => {
-        toast.error(e)
+
 
       });
   }
@@ -100,7 +91,6 @@ export function UserAuthContextProvider({ children }) {
       // Profile updated!
       // ...
     }).catch((error) => {
-      toast.error(error)
 
       // ...
     });
